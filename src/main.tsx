@@ -1,17 +1,30 @@
 import { createRoot } from "react-dom/client";
 
-import "./styles/index.css";
+import "~/config/i18n.ts";
+import "~/styles/app.css";
+import "~/styles/tailwind.css";
+import "@phosphor-icons/web/thin/style.css";
+import "@phosphor-icons/web/light/style.css";
+import "@phosphor-icons/web/bold/style.css";
+import "@phosphor-icons/web/regular/style.css";
+import "@phosphor-icons/web/duotone/style.css";
 
-import { BrowserRouter, Route, Routes } from "react-router";
+import { createHashRouter, RouterProvider } from "react-router";
 
-import Root from "./root.tsx";
+import Root, { loader as rootLoader } from "~/root.tsx";
+
+import { MainLayout } from "~/layouts/main-layout.tsx";
 
 const root = document.getElementById("root");
 
-createRoot(root!).render(
-  <BrowserRouter>
-    <Routes>
-      <Route path="/" element={<Root />} />
-    </Routes>
-  </BrowserRouter>,
-);
+const router = createHashRouter([
+  {
+    id: "root",
+    path: "/",
+    element: <Root />,
+    loader: rootLoader,
+    children: [{ id: "tools", path: "tools", element: <MainLayout /> }],
+  },
+]);
+
+createRoot(root!).render(<RouterProvider router={router} />);

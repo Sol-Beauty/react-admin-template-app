@@ -1,38 +1,63 @@
-import { useState } from "react";
+import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
+import { Outlet, useRouteLoaderData } from "react-router";
+import { PrimeReactProvider } from "primereact/api";
+import { ConfirmDialog } from "primereact/confirmdialog";
 
-import viteLogo from "/vite.svg";
-import reactLogo from "~/assets/react.svg";
+import { LayoutProvider } from "~/layouts/context/layout-provider.tsx";
+import { ToastProvider } from "~/layouts/context/toast-provider.tsx";
 
-import "~/styles/App.css";
+import {
+  getUserLocalePreference,
+  setLocaleInDocument,
+} from "~/layouts/utils/locales.ts";
+import {
+  getUserThemePreference,
+  setThemeInDocument,
+} from "~/layouts/utils/themes.ts";
+import {
+  getUserUiScalePreference,
+  setUiScaleInDocument,
+} from "~/layouts/utils/ui-scale.ts";
 
-function Root() {
-  const [count, setCount] = useState(0);
+export function loader() {
+  const user = {};
+  const selectedTheme = getUserThemePreference();
+  const selectedLocale = getUserLocalePreference();
+  const selectedUiScale = getUserUiScalePreference();
 
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
+  setThemeInDocument(selectedTheme);
+  setLocaleInDocument(selectedLocale);
+  setUiScaleInDocument(selectedUiScale);
 
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  );
+  return {
+    user,
+    selectedLocale,
+    selectedTheme,
+    selectedUiScale,
+  };
 }
 
-export default Root;
+export default function Root() {
+  const rootData = useRouteLoaderData("root");
+  const { i18n } = useTranslation();
+
+  useEffect(() => {
+    i18n.changeLanguage(rootData?.selectedLocale.key).then();
+  }, [rootData?.selectedLocale.key]);
+
+  return (
+    <PrimeReactProvider>
+      <LayoutProvider
+        locale={rootData.selectedLocale}
+        theme={rootData.selectedTheme}
+        scale={rootData.selectedUiScale}
+      >
+        <ToastProvider>
+          <Outlet />
+        </ToastProvider>
+      </LayoutProvider>
+      <ConfirmDialog />
+    </PrimeReactProvider>
+  );
+}
