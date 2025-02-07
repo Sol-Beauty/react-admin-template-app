@@ -26,3 +26,12 @@ export type ProjectUIScale = {
   /** Font size from which the elements will be based through the unit `rem`. */
   fontSize: number;
 };
+
+export type UIMatchData = { meta: { title: string } };
+
+export type UIMatchHandle = {
+  title?: string;
+  //navTitle_i18n?: string;
+  icon?: string;
+  index?: boolean;
+};

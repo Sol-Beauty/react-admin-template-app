@@ -9,6 +9,8 @@ import clsx from "clsx";
 import { Button } from "primereact/button";
 import { Card } from "primereact/card";
 
+import { type UIMatchData } from "~/layouts/types.ts";
+
 /** Layout per content view */
 function ViewLayout({
   title,
@@ -18,13 +20,13 @@ function ViewLayout({
   className,
   children,
 }: ViewLayoutProps) {
-  const meta = useLoaderData<{ meta: { title?: string } }>()?.meta;
+  const meta = useLoaderData<UIMatchData>()?.meta;
 
   return (
     <div className={clsx("grid grid-cols-6 gap-4", className)}>
       {(title !== null || actionsSlot) && (
         <header className="col-span-6 flex items-center justify-between gap-1">
-          <div className="flex items-center gap-1">
+          <div className="animate-fade-down animate-duration-300 flex items-center gap-1">
             {backTo && (
               <Link to={backTo}>
                 <Button
@@ -39,7 +41,11 @@ function ViewLayout({
             </h1>
             {afterTitleSlot && <div>{afterTitleSlot}</div>}
           </div>
-          {actionsSlot && <div>{actionsSlot}</div>}
+          {actionsSlot && (
+            <div className="animate-fade-left animate-duration-500 animate-delay-200">
+              {actionsSlot}
+            </div>
+          )}
         </header>
       )}
       {Children.map(children, (child, index) => {

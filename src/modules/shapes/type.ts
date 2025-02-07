@@ -1,4 +1,4 @@
-interface Shape {
+export interface Shape {
   id: number;
   key: string;
   name: string;

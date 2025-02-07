@@ -1,16 +1,35 @@
-import { Outlet } from "react-router";
+import { ReactNode } from "react";
+import { useTranslation } from "react-i18next";
+import {
+  isRouteErrorResponse,
+  Link,
+  Outlet,
+  useNavigate,
+  useRouteError,
+} from "react-router";
 import clsx from "clsx";
+import { getFixedT } from "i18next";
 import { Button } from "primereact/button";
 
+import { ViewLayout } from "~/core/components";
 import { HeaderMain } from "~/layouts/components/header-main";
 import { BreadcrumbNav } from "~/layouts/components/header-main/breadcrumb-nav";
 import { SidebarDrawer } from "~/layouts/components/sidebar-drawer";
 import { SidebarMenu } from "~/layouts/components/sidebar-menu";
 
+import { HttpStatusCode } from "~/core/constants/fetch.ts";
 import { useOpener } from "~/core/hooks";
+import { getUserLocalePreference } from "~/layouts/utils/locales.ts";
+
+export function loader() {
+  const { language } = getUserLocalePreference();
+  const t = getFixedT(language);
+
+  return { meta: { title: t("router:home") } };
+}
 
 /** Default layout for project modules */
-export function MainLayout() {
+export default function MainLayout({ children }: { children?: ReactNode }) {
   const { isOpen, toggleOpen } = useOpener();
 
   return (
@@ -39,9 +58,62 @@ export function MainLayout() {
           <BreadcrumbNav className="max-sm:hidden" />
         </HeaderMain>
         <main className="bg-surface-ground flex h-full flex-col overflow-x-hidden overflow-y-scroll p-4 pr-2 sm:p-6 sm:pr-4">
-          <Outlet />
+          {children ?? <Outlet />}
         </main>
       </div>
     </div>
+  );
+}
+
+export function ErrorBoundary() {
+  const error = useRouteError();
+  const { t } = useTranslation();
+  const navigate = useNavigate();
+
+  console.error(error);
+
+  const finalErrorStatus = isRouteErrorResponse(error)
+    ? error.status
+    : HttpStatusCode.INTERNAL_SERVER_ERROR;
+
+  const finalErrorStatusText = isRouteErrorResponse(error)
+    ? t(`statusCodes:${error.status}.large`)
+    : t("dialogs.unexpectedError");
+
+  return (
+    <MainLayout>
+      <ViewLayout
+        title={
+          isRouteErrorResponse(error)
+            ? t(`statusCodes:${error.status}.short`)
+            : t("dialogs.unexpectedError")
+        }
+      >
+        <ViewLayout.Section>
+          <div className="flex h-[40vh] w-full flex-col items-center justify-center gap-6">
+            <div className="flex w-[64rem] max-w-full flex-col items-center px-4 text-center">
+              <span className="text-7xl font-medium sm:text-9xl">
+                {finalErrorStatus}
+              </span>
+              <span className="sm:text-lg">{finalErrorStatusText}</span>
+            </div>
+            <div className="flex gap-1">
+              <Button
+                severity="secondary"
+                icon="ph ph-arrow-left"
+                onClick={() => navigate(-1)}
+              />
+              <Link to="/">
+                <Button
+                  severity="secondary"
+                  label={t("actions.backToHome")}
+                  icon="ph ph-house"
+                />
+              </Link>
+            </div>
+          </div>
+        </ViewLayout.Section>
+      </ViewLayout>
+    </MainLayout>
   );
 }

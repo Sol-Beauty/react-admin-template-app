@@ -1,12 +1,17 @@
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { Outlet, useRouteLoaderData } from "react-router";
+import {
+  Outlet,
+  ShouldRevalidateFunctionArgs,
+  useRouteLoaderData,
+} from "react-router";
 import { PrimeReactProvider } from "primereact/api";
 import { ConfirmDialog } from "primereact/confirmdialog";
 
 import { LayoutProvider } from "~/layouts/context/layout-provider.tsx";
 import { ToastProvider } from "~/layouts/context/toast-provider.tsx";
 
+import { useSetDocumentTitle } from "~/layouts/hooks/use-set-document-title.tsx";
 import {
   getUserLocalePreference,
   setLocaleInDocument,
@@ -19,6 +24,18 @@ import {
   getUserUiScalePreference,
   setUiScaleInDocument,
 } from "~/layouts/utils/ui-scale.ts";
+
+/** Avoid unnecessary root revalidations if not needed */
+export const shouldRevalidate = ({
+  formMethod,
+  currentUrl,
+  nextUrl,
+}: ShouldRevalidateFunctionArgs) => {
+  if (formMethod && formMethod !== "GET") {
+    return true;
+  }
+  return currentUrl.toString() === nextUrl.toString();
+};
 
 export function loader() {
   const user = {};
@@ -42,6 +59,8 @@ export default function Root() {
   const rootData = useRouteLoaderData("root");
   const { i18n } = useTranslation();
 
+  useSetDocumentTitle();
+
   useEffect(() => {
     i18n.changeLanguage(rootData?.selectedLocale.key).then();
   }, [rootData?.selectedLocale.key]);
@@ -61,3 +80,5 @@ export default function Root() {
     </PrimeReactProvider>
   );
 }
+
+export type RootLoader = typeof loader;
