@@ -29,6 +29,9 @@ const toolsCatchRoute: RouteObject = {
 const fallbackRoute: RouteObject = {
   id: "tools.$",
   path: "*",
+  handle: {
+    title: "Error",
+  },
   loader: () => {
     throw new Response(null, { status: 404 });
   },
