@@ -4,6 +4,7 @@ import { Dropdown, type DropdownChangeEvent } from "primereact/dropdown";
 
 import { projectThemes } from "~/layouts/data/themes";
 import { useLayoutTheme } from "~/layouts/hooks/use-layout-theme";
+import type { ProjectTheme } from "~/layouts/types.ts";
 
 export function ThemeSelector({ display = "icon" }: ThemeSelectorProps) {
   const { t } = useTranslation();

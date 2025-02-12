@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { UIMatch, useMatches } from "react-router";
 
-import { PROJECT_NAME } from "~/core/constants/brand.ts";
+import projectConfig from "~/config/project-config.ts";
 import type { UIMatchData, UIMatchHandle } from "~/layouts/types.ts";
 
 export function useSetDocumentTitle() {
@@ -17,13 +17,13 @@ export function useSetDocumentTitle() {
     let title;
 
     if (currentRoute.data?.meta?.title) {
-      title = `${currentRoute.data.meta.title} | ${PROJECT_NAME}`;
+      title = `${currentRoute.data.meta.title} | ${projectConfig.name}`;
     } else if (currentRoute.handle?.title) {
-      title = `${currentRoute.handle?.title} | ${PROJECT_NAME}`;
+      title = `${currentRoute.handle?.title} | ${projectConfig.name}`;
     } else if (currentRoute?.id) {
-      title = `${t("router:" + currentRoute.id)} | ${PROJECT_NAME}`;
+      title = `${t("router:" + currentRoute.id)} | ${projectConfig.name}`;
     } else {
-      title = PROJECT_NAME;
+      title = projectConfig.name;
     }
 
     document.title = title;

@@ -1,3 +1,5 @@
+import type { ProjectLocale } from "~/layouts/types.ts";
+
 export const projectLocales: Array<ProjectLocale> = [
   {
     key: "es-MX",

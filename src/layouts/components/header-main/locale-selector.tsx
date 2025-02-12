@@ -2,6 +2,7 @@ import { Dropdown, type DropdownChangeEvent } from "primereact/dropdown";
 
 import { projectLocales } from "~/layouts/data/locales";
 import { useLayoutLocale } from "~/layouts/hooks/use-layout-locale";
+import type { ProjectLocale } from "~/layouts/types.ts";
 
 export function LocaleSelector({ display = "icon" }: LocaleSelectorProps) {
   const { selectedLocale, setSelectedLocale } = useLayoutLocale();

@@ -1,11 +1,13 @@
-import { PROJECT_NAME } from "~/core/constants/brand";
+import projectConfig from "~/config/project-config.ts";
 
 export function parseRouteMeta({ meta }: parseRouteMetaArgs = {}) {
   if (!meta) return [];
 
   return [
     {
-      title: meta?.title ? `${meta?.title} | ${PROJECT_NAME}` : PROJECT_NAME,
+      title: meta?.title
+        ? `${meta?.title} | ${projectConfig.name}`
+        : projectConfig.name,
     },
   ];
 }

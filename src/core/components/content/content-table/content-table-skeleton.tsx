@@ -23,7 +23,7 @@ export function ContentTableSkeleton({
       {columnsConfig.map(({ key, type }) => (
         <Column
           key={key}
-          body={(data, options) => (
+          body={(_, options) => (
             <ContentTableCellSkeleton type={type} index={options.rowIndex} />
           )}
           header={t(`attribs.${key}`, { ns: headersI18nNamespace })}

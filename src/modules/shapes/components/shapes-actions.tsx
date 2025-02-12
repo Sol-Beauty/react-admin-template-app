@@ -3,6 +3,7 @@ import { Button } from "primereact/button";
 
 import { useContentItems } from "~/core/hooks";
 import { useToast } from "~/layouts/hooks/use-toast";
+import type { Shape } from "~/modules/shapes/type.ts";
 
 export function ShapesActions({ className }: ShapesActionsProps) {
   const { t } = useTranslation();
@@ -33,6 +34,7 @@ export function ShapesActions({ className }: ShapesActionsProps) {
       label={t("actions.view")}
       icon="ph ph-cards"
       onClick={handleClick}
+      className={className}
     />
   );
 }

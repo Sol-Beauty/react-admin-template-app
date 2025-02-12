@@ -2,6 +2,7 @@ import * as baseApi from "~/core/api/base";
 import { type BaseApiFunctionConfig } from "~/core/api/base";
 import { type PaginatedResponse } from "~/core/types/fetch";
 import { mockShapes } from "~/modules/shapes/data/mock";
+import type { Shape } from "~/modules/shapes/type.ts";
 
 const MODULE_API_PATH = "coupons";
 

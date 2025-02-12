@@ -2,6 +2,8 @@ import { useTranslation } from "react-i18next";
 import clsx from "clsx";
 import { Button } from "primereact/button";
 
+import type { Shape } from "~/modules/shapes/type.ts";
+
 /** Component that renders action buttons for a shape */
 export function ShapeActions({ item, className }: ShapesActionsProps) {
   const { t } = useTranslation();

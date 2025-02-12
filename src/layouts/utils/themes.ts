@@ -3,6 +3,7 @@ import {
   projectLightTheme,
   projectThemes,
 } from "~/layouts/data/themes";
+import type { ProjectTheme } from "~/layouts/types.ts";
 
 const THEME_LOCAL_STORAGE_KEY = "userTheme";
 const THEME_LINK_ELEMENT_ID = "theme-link";

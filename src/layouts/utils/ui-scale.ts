@@ -2,6 +2,7 @@ import {
   projectNormalUiScale,
   projectUiScales,
 } from "~/layouts/data/ui-scales";
+import type { ProjectUIScale } from "~/layouts/types.ts";
 
 const SCALE_LOCAL_STORAGE_KEY = "userUiScale";
 

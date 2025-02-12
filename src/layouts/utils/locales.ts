@@ -1,4 +1,5 @@
 import { defaultProjectLocale, projectLocales } from "~/layouts/data/locales";
+import type { ProjectLocale } from "~/layouts/types.ts";
 
 const LANG_LOCAL_STORAGE_KEY = "userLocale";
 

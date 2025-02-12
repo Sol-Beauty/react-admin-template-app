@@ -1,3 +1,5 @@
+import type { ProjectUIScale } from "~/layouts/types.ts";
+
 export const projectUiScales: Array<ProjectUIScale> = [
   {
     key: "small",

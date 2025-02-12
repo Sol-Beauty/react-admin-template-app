@@ -5,12 +5,14 @@ import Root, {
   shouldRevalidate as rootShouldRevalidate,
 } from "~/root.tsx";
 
+import { HttpStatusCode } from "~/core/constants/fetch.ts";
 import MainLayout, {
   ErrorBoundary as MainLayoutErrorBoundary,
   loader as mainLayoutLoader,
 } from "~/layouts/main-layout.tsx";
 import dashboardRoutes from "~/modules/dashboard/routes.tsx";
 import shapesRoutes from "~/modules/shapes/routes.tsx";
+import authRoutes from "~/modules/user/auth-routes.tsx";
 
 const indexCatchRoute: RouteObject = {
   id: "index",
@@ -33,7 +35,7 @@ const fallbackRoute: RouteObject = {
     title: "Error",
   },
   loader: () => {
-    throw new Response(null, { status: 404 });
+    throw new Response(null, { status: HttpStatusCode.NOT_FOUND });
   },
 };
 
@@ -46,6 +48,7 @@ const router = createHashRouter([
     shouldRevalidate: rootShouldRevalidate,
     children: [
       indexCatchRoute,
+      authRoutes,
       {
         id: "tools",
         path: "tools",

@@ -1,3 +1,5 @@
+import type { Shape } from "~/modules/shapes/type.ts";
+
 export const mockShapes: Array<Shape> = [
   {
     id: 56,

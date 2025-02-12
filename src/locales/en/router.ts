@@ -1,7 +1,9 @@
 export const router = {
   home: "Home",
   dashboard: "Dashboard",
-  login: "Login",
+  auth: {
+    login: "Login",
+  },
   user: "My Profile",
   shapes: {
     index: "Shapes",

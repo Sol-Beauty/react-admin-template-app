@@ -28,7 +28,7 @@ export function loader() {
   return { meta: { title: t("router:home") } };
 }
 
-/** Default layout for project modules */
+/** Default layout for projectConfig modules */
 export default function MainLayout({ children }: { children?: ReactNode }) {
   const { isOpen, toggleOpen } = useOpener();
 

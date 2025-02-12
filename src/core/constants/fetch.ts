@@ -1,11 +1,12 @@
-export const BASE_API_URL = import.meta.env?.VITE_BASE_API_URL;
+import projectConfig from "~/config/project-config.ts";
 
 /**
  * Readonly strings that represents paths of base api versions
  */
 export const ServiceApi = {
-  BASE_V1: `${BASE_API_URL}/api/`,
-  BASE_V2: `${BASE_API_URL}/v2/`,
+  BASE_V1: `${projectConfig.baseApi.url}api/`,
+  BASE_V2: `${projectConfig.baseApi.url}v2/`,
+  AUTH: `${projectConfig.authApi.url}`,
 } as const;
 
 /**
