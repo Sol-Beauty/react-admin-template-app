@@ -6,11 +6,13 @@ import {
   Outlet,
   redirect,
   useNavigate,
+  useNavigation,
   useRouteError,
 } from "react-router";
 import clsx from "clsx";
 import { getFixedT } from "i18next";
 import { Button } from "primereact/button";
+import { ProgressBar } from "primereact/progressbar";
 
 import { ViewLayout } from "~/core/components";
 import { HeaderMain } from "~/layouts/components/header-main";
@@ -49,9 +51,17 @@ export async function loader() {
 /** Default layout for projectConfig modules */
 export default function MainLayout({ children }: { children?: ReactNode }) {
   const { isOpen, toggleOpen } = useOpener();
+  const navigation = useNavigation();
 
   return (
-    <div className="flex h-[100dvh] w-full overflow-y-hidden">
+    <div className="relative flex h-[100dvh] w-full overflow-y-hidden">
+      <ProgressBar
+        className={clsx(
+          "absolute z-100 h-1 w-full transition-opacity duration-200",
+          navigation.state !== "idle" ? "opacity-100" : "opacity-0",
+        )}
+        mode="indeterminate"
+      ></ProgressBar>
       <SidebarDrawer
         visible={isOpen}
         toggleVisible={toggleOpen}
