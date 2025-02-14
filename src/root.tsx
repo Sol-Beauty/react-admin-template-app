@@ -137,5 +137,3 @@ export function ErrorBoundary() {
     </div>
   );
 }
-
-export type RootLoader = typeof loader;
