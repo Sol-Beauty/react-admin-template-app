@@ -1,8 +1,9 @@
-import { useRootLoaderData } from "~/core/hooks";
+import { useRouteLoaderData } from "react-router";
+
 import { BYPASS_PROTECTION } from "~/modules/user/constants";
 
 export function usePermissions() {
-  const { user } = useRootLoaderData();
+  const { user } = useRouteLoaderData("tools");
 
   /** Function to check if the user has any of the specified permissions.
    * Returns false if there is no user.

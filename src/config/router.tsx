@@ -1,6 +1,8 @@
 import { createHashRouter, redirect, RouteObject } from "react-router";
 
 import Root, {
+  ErrorBoundary as RootErrorBoundary,
+  HydrateFallback as RootHydrateFallback,
   loader as rootLoader,
   shouldRevalidate as rootShouldRevalidate,
 } from "~/root.tsx";
@@ -46,6 +48,8 @@ const router = createHashRouter([
     element: <Root />,
     loader: rootLoader,
     shouldRevalidate: rootShouldRevalidate,
+    hydrateFallbackElement: <RootHydrateFallback />,
+    errorElement: <RootErrorBoundary />,
     children: [
       indexCatchRoute,
       authRoutes,
@@ -53,7 +57,7 @@ const router = createHashRouter([
         id: "tools",
         path: "tools",
         handle: {
-          icon: "ph ph-house",
+          icon: "ph-house",
         },
         element: <MainLayout />,
         errorElement: <MainLayoutErrorBoundary />,

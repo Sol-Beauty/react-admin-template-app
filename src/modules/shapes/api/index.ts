@@ -6,9 +6,7 @@ import type { Shape } from "~/modules/shapes/type.ts";
 
 const MODULE_API_PATH = "coupons";
 
-export function getAllShapes({
-  params,
-}: Pick<BaseApiFunctionConfig, "params"> = {}) {
+export function getAllShapes({}: Pick<BaseApiFunctionConfig, "params"> = {}) {
   // Just mock logic
   return new Promise((resolve) => {
     setTimeout(() => {

@@ -8,7 +8,7 @@ const projectConfig = {
     url: import.meta.env?.VITE_AUTH_API_URL,
     loginPath: "api/auth/login",
     logoutPath: "api/auth/logout",
-    whoamiPath: "me",
+    whoamiPath: "api/me",
   },
 } as const;
 

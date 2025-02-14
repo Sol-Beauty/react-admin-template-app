@@ -8,7 +8,7 @@ const routes = {
   id: "shapes.index",
   path: "shapes",
   handle: {
-    icon: "ph ph-shapes",
+    icon: "ph-shapes",
   },
   children: [
     {

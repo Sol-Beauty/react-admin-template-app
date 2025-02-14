@@ -11,7 +11,7 @@ const routes = {
   element: <DashboardIndex />,
   loader: dashboardIndexLoader,
   handle: {
-    icon: "ph ph-chart-donut",
+    icon: "ph-chart-donut",
   },
 } satisfies RouteObject;
 

@@ -4,6 +4,7 @@ import {
   isRouteErrorResponse,
   Link,
   Outlet,
+  redirect,
   useNavigate,
   useRouteError,
 } from "react-router";
@@ -20,12 +21,29 @@ import { SidebarMenu } from "~/layouts/components/sidebar-menu";
 import { HttpStatusCode } from "~/core/constants/fetch.ts";
 import { useOpener } from "~/core/hooks";
 import { getUserLocalePreference } from "~/layouts/utils/locales.ts";
+import { checkLogin } from "~/modules/user/api";
+import {
+  getUserToken,
+  removeUserToken,
+} from "~/modules/user/utils/token.client.ts";
 
-export function loader() {
+export async function loader() {
   const { language } = getUserLocalePreference();
+  const token = getUserToken();
   const t = getFixedT(language);
 
-  return { meta: { title: t("router:home") } };
+  if (!token) {
+    return redirect("/auth/login");
+  }
+
+  try {
+    const user = await checkLogin({ token });
+    return { user, meta: { title: t("router:home") } };
+  } catch (e) {
+    console.error(e);
+    removeUserToken();
+    return redirect("/auth/login");
+  }
 }
 
 /** Default layout for projectConfig modules */
