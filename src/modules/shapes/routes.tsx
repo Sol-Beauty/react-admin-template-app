@@ -8,7 +8,7 @@ const routes = {
   id: "shapes.index",
   path: "shapes",
   handle: {
-    icon: "ph-shapes",
+    icon: "ph ph-shapes",
   },
   children: [
     {
@@ -18,6 +18,7 @@ const routes = {
       loader: shapesIndexLoader,
       handle: {
         index: true,
+        hideInMenu: true,
       },
     },
   ],

@@ -23,18 +23,22 @@ const indexCatchRoute: RouteObject = {
   loader: () => redirect("/tools"),
 };
 
-const toolsCatchRoute: RouteObject = {
+const toolsIndexRoute: RouteObject = {
   id: "tools.index",
   path: "",
   index: true,
+  handle: {
+    hideInMenu: true,
+  },
   loader: () => redirect("/tools/dashboard"),
 };
 
-const fallbackRoute: RouteObject = {
+const toolsFallbackRoute: RouteObject = {
   id: "tools.$",
   path: "*",
   handle: {
     title: "Error",
+    hideInMenu: true,
   },
   loader: () => {
     throw new Response(null, { status: HttpStatusCode.NOT_FOUND });
@@ -57,14 +61,14 @@ const router = createHashRouter([
         id: "tools",
         path: "tools",
         handle: {
-          icon: "ph-house",
+          icon: "ph ph-house",
         },
         element: <MainLayout />,
         errorElement: <MainLayoutErrorBoundary />,
         loader: mainLayoutLoader,
         children: [
-          toolsCatchRoute,
-          fallbackRoute,
+          toolsIndexRoute,
+          toolsFallbackRoute,
           dashboardRoutes,
           shapesRoutes,
         ],

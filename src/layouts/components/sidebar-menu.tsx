@@ -45,7 +45,7 @@ export function SidebarMenu({ className }: SidebarMenuProps) {
                         />
                       )}
                     </NavLink>
-                    {item?.items?.length && (
+                    {item?.items && Boolean(item.items?.length) && (
                       <div
                         className={clsx(
                           "rounded-pv border-surface-border bg-surface-section absolute top-0 left-[100%] border border-solid p-1",
