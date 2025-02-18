@@ -65,7 +65,7 @@ export default function AuthLogin() {
       header={
         <div className="flex w-full flex-col items-center justify-center p-4">
           <img
-            src="/assets/brand/logo.png"
+            src="assets/brand/logo.png"
             className="w-[9rem] max-w-[70%]"
             alt={projectConfig.name}
           />
