@@ -15,6 +15,7 @@ import MainLayout, {
 import dashboardRoutes from "~/modules/dashboard/routes.tsx";
 import shapesRoutes from "~/modules/shapes/routes.tsx";
 import authRoutes from "~/modules/user/auth-routes.tsx";
+import userRoutes from "~/modules/user/user-routes.tsx";
 
 const indexCatchRoute: RouteObject = {
   id: "index",
@@ -69,6 +70,7 @@ const router = createHashRouter([
         children: [
           toolsIndexRoute,
           toolsFallbackRoute,
+          userRoutes,
           dashboardRoutes,
           shapesRoutes,
         ],

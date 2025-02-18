@@ -16,14 +16,6 @@ import {
 } from "~/modules/shapes/data";
 import { Shape } from "~/modules/shapes/type.ts";
 
-export const handle = {
-  icon: "ph ph-shapes",
-};
-
-// export const meta: MetaFunction<typeof loader> = ({ data }) => {
-//   return parseRouteMeta(data);
-// };
-
 export function loader() {
   const { language } = getUserLocalePreference();
   const t = getFixedT(language);

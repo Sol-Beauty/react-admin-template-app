@@ -49,7 +49,7 @@ export function BreadcrumbNav({ className }: BreadcrumbNavProps) {
     return (
       <span className="group flex items-center gap-2">
         <i className={clsx(item.handle?.icon, "ph-bold")} />
-        <span>{item.data?.meta?.title}</span>
+        <span>{item.data?.meta?.title ?? t(`router:${item.id}`)}</span>
       </span>
     );
   };

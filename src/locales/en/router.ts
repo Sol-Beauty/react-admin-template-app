@@ -4,7 +4,7 @@ export const router = {
   auth: {
     login: "Login",
   },
-  user: "My Profile",
+  myProfile: "My Profile",
   shapes: {
     index: "Shapes",
     circles: {
